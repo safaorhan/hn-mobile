@@ -3,7 +3,7 @@
     "project_number": "1018782027762",
     "project_id": "hn-mobile-bd338",
     "storage_bucket": "hn-mobile-bd338.appspot.com",
-    "firebase_url": "https://hacker-news.firebaseio.com/v0/"
+    "firebase_url": "https://hacker-news.firebaseio.com/"
   },
   "client": [
     {
