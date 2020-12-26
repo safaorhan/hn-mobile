@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     val query = FirebaseDatabase.getInstance()
         .reference
         .child("/v0/topstories")
-        .limitToLast(5)
+        .limitToLast(20)
 
     val options: FirebaseRecyclerOptions<Int> = FirebaseRecyclerOptions.Builder<Int>()
         .setQuery(query, Int::class.java)
