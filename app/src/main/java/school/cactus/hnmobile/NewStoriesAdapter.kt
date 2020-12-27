@@ -36,9 +36,9 @@ class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val children = snapshot.getValue<String>()
+                val newsTitle = snapshot.getValue<String>()
 
-                storyItemHolder.textView.text = "News: "+children.toString()
+                storyItemHolder.textView.text = "News: $newsTitle"
             }
         })
     }
@@ -46,7 +46,7 @@ class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
 
     class StoryItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val textView: TextView = itemView.findViewById<TextView>(R.id.textView)
+        val textView: TextView = itemView.findViewById(R.id.textView)
     }
 
 }
