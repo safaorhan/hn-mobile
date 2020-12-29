@@ -27,8 +27,8 @@ class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
     }
 
     override fun onBindViewHolder(storyItemHolder: StoryItemHolder, position: Int, model: Int) {
-
-        val queryStory = query.child("/v0/item/$model").child("title")
+        
+        val queryStory = query.child("/v0/item/$model")
 
         queryStory.addListenerForSingleValueEvent(object : ValueEventListener {
 
@@ -36,9 +36,9 @@ class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val newsTitle = snapshot.getValue<String>()
+                val newsItem = snapshot.getValue<Item>()!!
 
-                storyItemHolder.textView.text = "News: $newsTitle"
+                storyItemHolder.textView.text = "News: ${newsItem.title}"
             }
         })
     }
@@ -48,5 +48,4 @@ class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
 
         val textView: TextView = itemView.findViewById(R.id.textView)
     }
-
 }
