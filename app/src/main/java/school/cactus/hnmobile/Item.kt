@@ -4,6 +4,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class Item(
+    var id: Int = 0,
     var title: String? = "",
     var type: String? = "",
     var url: String? = null,

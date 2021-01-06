@@ -1,5 +1,6 @@
 package school.cactus.hnmobile
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ import school.cactus.hnmobile.NewStoriesAdapter.StoryItemHolder
 class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
     FirebaseRecyclerAdapter<Int, StoryItemHolder>(options) {
 
+    val itemMap = mutableMapOf<Int, Item>()
+
     private val query = Firebase.database.reference
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryItemHolder {
         // Create a new view, which defines the UI of the list item
@@ -27,20 +30,27 @@ class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
     }
 
     override fun onBindViewHolder(storyItemHolder: StoryItemHolder, position: Int, model: Int) {
-        
+
         val queryStory = query.child("/v0/item/$model")
 
-        queryStory.addListenerForSingleValueEvent(object : ValueEventListener {
+        if (itemMap.containsKey(model)) {
+            storyItemHolder.textView.text = "News: ${itemMap[model]!!.title}"
+        } else {
+            storyItemHolder.textView.text = "Yükleniyor..."
 
-            override fun onCancelled(error: DatabaseError) {
-            }
+            queryStory.addListenerForSingleValueEvent(object : ValueEventListener {
 
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val newsItem = snapshot.getValue<Item>()!!
+                override fun onCancelled(error: DatabaseError) {
+                }
 
-                storyItemHolder.textView.text = "News: ${newsItem.title}"
-            }
-        })
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val newsItem = snapshot.getValue<Item>()!!
+                    itemMap[newsItem.id] = newsItem
+                    storyItemHolder.textView.text = "News: ${newsItem.title}"
+                }
+            })
+        }
+
     }
 
 
