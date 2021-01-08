@@ -1,6 +1,6 @@
 package school.cactus.hnmobile
 
-import android.util.Log
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,9 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import school.cactus.hnmobile.NewStoriesAdapter.StoryItemHolder
 
-class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
+class NewStoriesAdapter(
+    options: FirebaseRecyclerOptions<Int>
+) :
     FirebaseRecyclerAdapter<Int, StoryItemHolder>(options) {
 
     val itemMap = mutableMapOf<Int, Item>()
@@ -35,8 +37,9 @@ class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
 
         if (itemMap.containsKey(model)) {
             storyItemHolder.textView.text = "News: ${itemMap[model]!!.title}"
+            storyItemHolder.bindTo(itemMap[model]!!)
         } else {
-            storyItemHolder.textView.text = "Yükleniyor..."
+            storyItemHolder.textView.text = "Loading..."
 
             queryStory.addListenerForSingleValueEvent(object : ValueEventListener {
 
@@ -44,9 +47,11 @@ class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
+
                     val newsItem = snapshot.getValue<Item>()!!
                     itemMap[newsItem.id] = newsItem
                     storyItemHolder.textView.text = "News: ${newsItem.title}"
+
                 }
             })
         }
@@ -57,5 +62,21 @@ class NewStoriesAdapter(options: FirebaseRecyclerOptions<Int>) :
     class StoryItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val textView: TextView = itemView.findViewById(R.id.textView)
+        fun bindTo(item: Item) {
+            textView.setOnClickListener {
+
+                val intent = Intent(it.context, NewsStoryActivty::class.java)
+
+                //Detail sayfasına gonderdigimiz verileri put extra kullanarak göndericez.
+
+                intent.putExtra("newdescrip", item.url)
+
+
+                it.context.startActivity(intent)
+
+            }
+
+        }
+
     }
 }
