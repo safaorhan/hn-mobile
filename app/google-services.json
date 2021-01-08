@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1018782027762",
+    "project_id": "hn-mobile-bd338",
+    "storage_bucket": "hn-mobile-bd338.appspot.com",
+    "firebase_url": "https://hacker-news.firebaseio.com/"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018782027762:android:0c4cf1c375cfa946cfe56b",
+        "android_client_info": {
+          "package_name": "school.cactus.hnmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018782027762-45g0vg3pe049m263n8158ton909aqsj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHGh_eCQBQbZR1zD8SfdUgadk2XSkZMBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018782027762-45g0vg3pe049m263n8158ton909aqsj2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
